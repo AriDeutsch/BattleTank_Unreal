@@ -11,16 +11,6 @@ void ATankAIController::BeginPlay()
 	if (MyControlledTank)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AI possessing %s"), *MyControlledTank->GetName())
-		
-		ATank* PlayerTank = GetPlayerTank();
-		if (PlayerTank)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("%s(AI) locked on player tank: %s"), *MyControlledTank->GetName(), *PlayerTank->GetName())
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("%s(AI) has not found player tank"),*MyControlledTank->GetName())
-		}
 	}
 	else
 	{
@@ -33,7 +23,10 @@ void ATankAIController::BeginPlay()
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (GetPlayerTank())
+	{
+		GetControlledTank()->AimAtTarget(GetPlayerTank()->GetActorLocation());
+	}
 }
 
 ATank* ATankAIController::GetControlledTank() const
@@ -44,7 +37,6 @@ ATank* ATankAIController::GetControlledTank() const
 ATank * ATankAIController::GetPlayerTank() const
 {
 	APawn* Pawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!Pawn)return nullptr;
 	return Cast<ATank>(Pawn);
 }
 
