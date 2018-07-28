@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Public/TankPlayerController.h"
-#include "Runtime/Engine/Public/DrawDebugHelpers.h"
+
+#include "TankPlayerController.h"
 
 void ATankPlayerController::BeginPlay()
 {
@@ -60,7 +60,6 @@ bool ATankPlayerController::GetCrosshairsHitLocation(FVector& OutHitLocation) co
 
 		if (GetWorld()->LineTraceSingleByChannel(HitObject, CrosshairsWorldLocation, LineTraceEnd, ECC_Visibility))
 		{
-			DrawDebugLine(GetWorld(), CrosshairsWorldLocation, LineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f);
 			OutHitLocation = HitObject.Location;
 			return true;
 		}

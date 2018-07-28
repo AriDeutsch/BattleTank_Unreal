@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "Engine/World.h"
-#include "Public/Tank.h"
+
 #include "CoreMinimal.h"
+#include "Public/Tank.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
@@ -28,7 +28,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	
 private:
-	ATank * GetControlledTank() const;
+	ATank* GetControlledTank() const;
 	void AimAtCrosshairs();
 	bool GetCrosshairsHitLocation(FVector& OutHitLocation) const;
 	UPROPERTY(EditAnywhere)float FireRange = 1000000; //10KM distance

@@ -2,13 +2,14 @@
 
 #pragma once
 
-
+#include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/StaticMeshComponent.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "AimingComponent.generated.h"
 
+class UTankBarrel;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANKS_API UAimingComponent : public UActorComponent
@@ -24,15 +25,15 @@ public:
 
 	void AimAtTarget(FVector Target, float LaunchSpeed);
 
-	void SetBarrelReference(UStaticMeshComponent* BarrelReference);
+	void MoveBarrelTowards(FVector Direction);
+
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 private:	
-	int i = 0;
-	int successes = 0;
-	UStaticMeshComponent * MyTanksBarrel = nullptr;
+	UTankBarrel* MyTanksBarrel = nullptr;
 	
 };
