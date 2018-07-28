@@ -33,19 +33,32 @@ void UAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	// ...
 }
 
-void UAimingComponent::AimAtTarget(FVector Target, float LaunchSpeed) const
+void UAimingComponent::AimAtTarget(FVector Target, float LaunchSpeed)
 {
 	if (!MyTanksBarrel)return;
 
+
 	FVector OutLaunchVelocity;
 
-	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, MyTanksBarrel->GetSocketLocation(FName("Missile Origin")), Target, LaunchSpeed,0,0,ESuggestProjVelocityTraceOption::DoNotTrace))
+	if (UGameplayStatics::SuggestProjectileVelocity(MyTanksBarrel, OutLaunchVelocity, MyTanksBarrel->GetSocketLocation(FName("Missile Origin")), Target, LaunchSpeed, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
-		FVector LaunchDirection = OutLaunchVelocity / LaunchSpeed;
-		UE_LOG(LogTemp, Warning, TEXT("%s aiming towards %s"), *GetOwner()->GetName(), *OutLaunchVelocity.ToString());
+		FVector LaunchDirection = OutLaunchVelocity.GetSafeNormal();
+		UE_LOG(LogTemp, Warning, TEXT("TICK %d: !!!!!SUCCESSFUL ATTEMPT!!!!! for %s"), i, *GetOwner()->GetName())
+		++successes;
+		UE_LOG(LogTemp, Warning, TEXT("%s aiming towards %s"), *GetOwner()->GetName(), *LaunchDirection.ToString());
 	}
-
-
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TICK %d: !!!!!FAILED ATTEMPT!!!!! for %s"), i, *GetOwner()->GetName())
+		UE_LOG(LogTemp, Warning, TEXT("WorldObject: %s"), *MyTanksBarrel->GetName())
+		UE_LOG(LogTemp, Warning, TEXT("launch velocity: %s"), *OutLaunchVelocity.ToString())
+		UE_LOG(LogTemp, Warning, TEXT("launch direction: %s"), *OutLaunchVelocity.GetSafeNormal().ToString())
+		UE_LOG(LogTemp, Warning, TEXT("socket location: %s"), *MyTanksBarrel->GetSocketLocation(FName("Missile Origin")).ToString())
+		UE_LOG(LogTemp, Warning, TEXT("target: %s"), *Target.ToString())
+		UE_LOG(LogTemp, Warning, TEXT("launch speed: %f"), LaunchSpeed)
+	}
+	UE_LOG(LogTemp, Warning, TEXT("cumulative successes: %d"), successes)
+	++i;
 }
 
 void UAimingComponent::SetBarrelReference(UStaticMeshComponent * BarrelReference)

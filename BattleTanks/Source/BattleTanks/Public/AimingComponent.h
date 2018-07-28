@@ -22,7 +22,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void AimAtTarget(FVector Target, float LaunchSpeed) const;
+	void AimAtTarget(FVector Target, float LaunchSpeed);
 
 	void SetBarrelReference(UStaticMeshComponent* BarrelReference);
 
@@ -31,7 +31,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:	
-	
+	int i = 0;
+	int successes = 0;
 	UStaticMeshComponent * MyTanksBarrel = nullptr;
 	
 };
