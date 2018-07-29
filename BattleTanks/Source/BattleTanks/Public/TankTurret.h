@@ -21,5 +21,5 @@ public:
 private:
 	//Angular speed of barrel pitch
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float DegreesPerSecond = 12;
+	float DegreesPerSecond = 40;
 };

@@ -21,7 +21,7 @@ public:
 private:
 	//Angular speed of barrel pitch
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float DegreesPerSecond = 12;
+	float DegreesPerSecond = 10;
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxElevation = 40;
 	UPROPERTY(EditAnywhere, Category = Setup)

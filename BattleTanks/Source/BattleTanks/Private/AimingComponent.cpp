@@ -11,7 +11,7 @@ UAimingComponent::UAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true; // TODO Does this need to tick?
+	PrimaryComponentTick.bCanEverTick = false; // TODO Does this need to tick?
 
 	// ...
 }
@@ -55,7 +55,6 @@ void UAimingComponent::MoveBarrelTowards(FVector Direction)
 {
 	FRotator BarrelRotation = MyTanksBarrel->GetForwardVector().Rotation();
 	FRotator DeltaRotation = Direction.Rotation() - BarrelRotation;
-	//UE_LOG(LogTemp, Warning, TEXT("Crosshairs Elevation: %s"), *Direction.Rotation().ToString())
 	MyTanksBarrel->Elevate(DeltaRotation.Pitch);
 }
 
@@ -63,9 +62,6 @@ void UAimingComponent::MoveTurretTowards(FVector Direction)
 {
 	FRotator TurretRotation = MyTanksTurret->GetForwardVector().Rotation();
 	FRotator DeltaRotation = Direction.Rotation() - TurretRotation;
-
-	//UE_LOG(LogTemp, Warning, TEXT("Turret Rotation: %s"), *TurretRotation.ToString())
-	//UE_LOG(LogTemp, Warning, TEXT("Crosshairs Rotation: %s"), *Direction.Rotation().ToString())
 	MyTanksTurret->Rotate(DeltaRotation.Yaw);
 }
 
