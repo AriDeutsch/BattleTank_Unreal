@@ -15,12 +15,13 @@ class BATTLETANKS_API UTankBarrel : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 public:
-	void Elevate(float DegreesPerSecond);
+	//0 argument will use min speed and +1 will use max speed
+	void Elevate(float RelativeSpeed);
 	
 private:
 	//Angular speed of barrel pitch
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float DegreesPerSecond = 20;
+	float DegreesPerSecond = 12;
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxElevation = 40;
 	UPROPERTY(EditAnywhere, Category = Setup)
